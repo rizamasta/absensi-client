@@ -1,0 +1,18 @@
+body,
+p,
+a,
+span {
+  font-family: 'Hurme Geometric Sans 3'
+}
+
+a {
+  text-decoration: none;
+}
+
+.centered {
+  height: auto;
+  /* Magic here */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

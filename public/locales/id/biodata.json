@@ -1,0 +1,14 @@
+{
+    "form": {
+        "field" :{
+            "name": "Full Name",
+            "address": "Address"
+        },
+        "placeholder" : {
+            "name" :"Type Your full name"
+        }
+    },
+    "validation": {
+        "required": "Field is required"
+    }
+}

@@ -1,0 +1,70 @@
+{
+  "step": {
+    "personaldata": "Personal Data",
+    "formaleducation": "Formal Education",
+    "workexperience": "Work Experience"
+  },
+  "form": {
+    "field": {
+      "name": "Full Name",
+      "address": "Address",
+      "birthplace": "Birth place",
+      "birthdate": "Birth date",
+      "gender": "Gender",
+      "marital": "Marital status",
+      "domocile": "Domocile Addres",
+      "street": "street",
+      "city": "City",
+      "province": "Province",
+      "zip": "Zip code",
+      "contact": "Contact Number",
+      "email": "Email",
+      "photo": "Photo(Latest)",
+      "idcard": "ID CARD (KTP or SIM)",
+
+      "level": "level",
+      "universitylocation": "University Location",
+      "university": "University",
+      "major": "Major",
+      "nim": "NIM",
+      "gpa": "GPA",
+      "graduationyear": "Graduation year",
+
+      "employmentstatus": "Employment status",
+      "companyname": "Company Name",
+      "businessarea": "Business Area",
+      "position": "Position",
+      "startdate": "Start Date",
+      "enddate": "End Date",
+      "current": "Current"
+    },
+    "placeholder": {
+      "name": "Type Your full name",
+      "birthplace": "Type Your birthplace",
+      "birthdate": "DD/MM/YY",
+      "street": "Type your street name",
+      "city": "Choose city",
+      "province": "Choose Province",
+      "zip": "Type Your ZIP code",
+      "contact": "8123456789",
+      "email": "Type Your email",
+
+      "university": "Select university",
+      "major": "Type your major",
+      "nim": "Type your Student ID Number",
+      "gpa": "Type your GPA (between 0.00 - 4.00)",
+      "graduationyear": "YYYY",
+
+      "companyname": "Type Your Company Name",
+      "businessarea": "Type Your Business Area",
+      "position": "Type Your Position",
+      "date": "MM/DD/YYYY"
+    }
+  },
+  "validation": {
+    "required": "Field is required"
+  },
+  "etc": {
+    "skip": "SKIP IF NOT APPLICABLE"
+  }
+}

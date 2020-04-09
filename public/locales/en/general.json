@@ -1,0 +1,21 @@
+{
+  "link": {
+    "home": "Home",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "button": {
+    "saveandcontinue": "Save & Continue",
+    "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "starttest": "Start Test"
+  },
+  "step": {
+    "bio-data": "Bio Data",
+    "test": "Test"
+  }
+}
