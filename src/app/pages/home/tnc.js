@@ -1,7 +1,6 @@
 import React from "react";
 import MyHelmet from "app/components/header/MyHelmet";
 import PrimaryAppBar from "app/components/header/PrimaryAppBar";
-import { getItem } from "app/utils";
 import { Typography, Grid } from "@material-ui/core";
 import { palette } from "assets/css/main";
 import { Footer } from "app/components";
@@ -23,12 +22,6 @@ const ketentuan = [
 ];
 
 export default class TermCondition extends React.Component {
-  constructor(props) {
-    super(props);
-    if (getItem("token")) {
-      this.props.history.push("/user/absen");
-    }
-  }
   render() {
     return (
       <React.Fragment>
