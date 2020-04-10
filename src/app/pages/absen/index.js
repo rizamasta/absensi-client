@@ -35,10 +35,10 @@ class Absensi extends React.Component {
     this.setState({ load: false });
     RequestPost("absensi/punchin")
       .then((res) => {
-        console.log(res);
         this.setState({ create: false, load: true });
       })
       .catch((e) => {
+        this.setState({ load: false });
         this.setState({ error: e.data.message });
       });
   }
@@ -46,10 +46,10 @@ class Absensi extends React.Component {
     this.setState({ load: false });
     RequestPut("absensi/punchout")
       .then((res) => {
-        console.log(res);
         this.setState({ create: true, load: true });
       })
       .catch((e) => {
+        this.setState({ load: false });
         this.setState({ error: e.data.message });
       });
   }
