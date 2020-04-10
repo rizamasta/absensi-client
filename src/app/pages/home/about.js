@@ -1,24 +1,15 @@
 import React from "react";
 import MyHelmet from "app/components/header/MyHelmet";
 import PrimaryAppBar from "app/components/header/PrimaryAppBar";
-import { getItem } from "app/utils";
 import { Grid, Typography } from "@material-ui/core";
 import { palette } from "assets/css/main";
-import { ImgEmployee } from "assets/img";
 import { Footer } from "app/components";
-import Partner from "./Partner";
 const content = {
   fontWeight: "bold",
   color: palette.primary,
   fontSize: 18,
 };
 export default class About extends React.Component {
-  constructor(props) {
-    super(props);
-    if (getItem("token")) {
-      this.props.history.push("/user/absen");
-    }
-  }
   render() {
     return (
       <React.Fragment>
@@ -58,8 +49,8 @@ export default class About extends React.Component {
               textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             }}
           >
-            Absensi secara digital membantu untuk mempermudah dan mempercepat
-            pencatatan absen Pegawai.
+            Website ini merupakan salah satu alternatif untuk absensi, Selama
+            kebijakan kerja dari rumah diterapkan.
           </Typography>
         </Grid>
         <Footer />
