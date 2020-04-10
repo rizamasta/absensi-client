@@ -61,14 +61,14 @@ export default function SmallMenu() {
                 to="/user/profile"
                 style={{ color: palette.primary, fontWeight: "bold" }}
               >
-                Profile
+                Profil
               </Link>
             </MenuItem>
             <MenuItem
               onClick={logout}
               style={{ color: palette.primary, fontWeight: "bold" }}
             >
-              Logout
+              Keluar
             </MenuItem>
           </div>
         )}
@@ -79,7 +79,7 @@ export default function SmallMenu() {
                 to=""
                 style={{ color: palette.primary, fontWeight: "bold" }}
               >
-                Home
+                Beranda
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose} style={{ width: 100 }}>
@@ -87,7 +87,7 @@ export default function SmallMenu() {
                 to="/user/login"
                 style={{ color: palette.primary, fontWeight: "bold" }}
               >
-                Login
+                Masuk
               </Link>
             </MenuItem>
           </div>

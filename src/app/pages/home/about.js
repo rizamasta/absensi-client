@@ -12,7 +12,7 @@ const content = {
   color: palette.primary,
   fontSize: 18,
 };
-export default class Home extends React.Component {
+export default class About extends React.Component {
   constructor(props) {
     super(props);
     if (getItem("token")) {
@@ -23,7 +23,7 @@ export default class Home extends React.Component {
     return (
       <React.Fragment>
         <PrimaryAppBar shadow={true} linkgroup={true} />
-        <MyHelmet title="Home" description="Absensi" />
+        <MyHelmet title="Tentang" description="Tentang Absensi" />
         <div
           style={{
             paddingTop: 80,
@@ -32,32 +32,36 @@ export default class Home extends React.Component {
             paddingLeft: 20,
           }}
         >
-          <Grid
-            container
-            justify="center"
+          <Typography
+            style={{ ...content, fontSize: 32, fontWeight: "bolder" }}
+          >
+            Tentang
+          </Typography>
+        </div>
+        <Grid
+          container
+          justify="flex-start"
+          style={{
+            backgroundColor: palette.primary,
+            height: "100vh",
+            paddingTop: 40,
+            paddingLeft: 20,
+            paddingRight: 50,
+          }}
+        >
+          <Typography
             style={{
-              paddingTop: 40,
-              minHeight: 400,
-              backgroundImage: "url(" + ImgEmployee + ")",
-              backgroundSize: "contain",
-              backgroundPosition: "bottom",
-              backgroundRepeat: "no-repeat",
+              fontWeight: "bold",
+              fontSize: 24,
+              width: 553,
+              color: "white",
+              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             }}
           >
-            <Grid item lg={10} md={10} sm={10}>
-              <Typography
-                style={{ ...content, fontSize: 32, fontWeight: "bolder" }}
-              >
-                Selamat Datang
-              </Typography>
-              <Typography style={content}>
-                Di Website Absensi, Silahkan <br />
-                Login untuk memulai
-              </Typography>
-            </Grid>
-          </Grid>
-        </div>
-        <Partner />
+            Absensi secara digital membantu untuk mempermudah dan mempercepat
+            pencatatan absen Pegawai.
+          </Typography>
+        </Grid>
         <Footer />
       </React.Fragment>
     );

@@ -9,12 +9,12 @@ export default class Partner extends React.Component {
       <Grid
         container
         justify="center"
-        // alignItems="center"
         style={{
           backgroundColor: palette.primary,
           minHeight: 300,
-          paddingTop: 64
-        }}>
+          paddingTop: 64,
+        }}
+      >
         <Typography
           style={{
             fontWeight: "bold",
@@ -22,9 +22,11 @@ export default class Partner extends React.Component {
             width: 553,
             textAlign: "center",
             color: "white",
-            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)"
-          }}>
-          Hiregrade have been helping these companies with their hiring problems
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          }}
+        >
+          Absensi secara digital membantu untuk mempermudah dan mempercepat
+          pencatatan absen Pegawai.
         </Typography>
       </Grid>
     );

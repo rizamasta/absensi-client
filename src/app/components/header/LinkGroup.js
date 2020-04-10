@@ -31,7 +31,7 @@ class LinkGroup extends React.Component {
               History
             </Link>
             <Link to="/user/profile" style={this.linkStyle}>
-              Profile
+              Profil
             </Link>
             <Button
               size="small"
@@ -39,18 +39,18 @@ class LinkGroup extends React.Component {
               style={{ ...this.buttonStyle, marginLeft: 20 }}
               onClick={() => this.doLogout()}
             >
-              Logout
+              Keluar
             </Button>
           </div>
         )}
         {!getItem("token") && (
           <div>
             <Link to="" style={this.linkStyle}>
-              Home
+              Beranda
             </Link>
             <Link to="/user/login" style={this.linkStyle}>
               <Button size="small" variant="contained" style={this.buttonStyle}>
-                Login
+                Masuk
               </Button>
             </Link>
           </div>

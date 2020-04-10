@@ -5,6 +5,9 @@ import {
   HistoryPage,
   Profile,
   ChangePassword,
+  About,
+  TNCPage,
+  FAQ,
 } from "../pages";
 
 const routes = [
@@ -12,6 +15,21 @@ const routes = [
     path: "/",
     exact: true,
     component: Home,
+  },
+  {
+    path: "/home/about",
+    exact: true,
+    component: About,
+  },
+  {
+    path: "/home/faq",
+    exact: true,
+    component: FAQ,
+  },
+  {
+    path: "/home/termcondition",
+    exact: true,
+    component: TNCPage,
   },
   {
     path: "/user/login",

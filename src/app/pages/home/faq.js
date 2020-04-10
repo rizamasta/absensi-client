@@ -4,7 +4,6 @@ import PrimaryAppBar from "app/components/header/PrimaryAppBar";
 import { getItem } from "app/utils";
 import { Grid, Typography } from "@material-ui/core";
 import { palette } from "assets/css/main";
-import { ImgEmployee } from "assets/img";
 import { Footer } from "app/components";
 import Partner from "./Partner";
 const content = {
@@ -12,7 +11,7 @@ const content = {
   color: palette.primary,
   fontSize: 18,
 };
-export default class Home extends React.Component {
+export default class FAQPage extends React.Component {
   constructor(props) {
     super(props);
     if (getItem("token")) {
@@ -23,7 +22,7 @@ export default class Home extends React.Component {
     return (
       <React.Fragment>
         <PrimaryAppBar shadow={true} linkgroup={true} />
-        <MyHelmet title="Home" description="Absensi" />
+        <MyHelmet title="Pertanyaan Umum" description="Pertanyaan Umum" />
         <div
           style={{
             paddingTop: 80,
@@ -32,30 +31,11 @@ export default class Home extends React.Component {
             paddingLeft: 20,
           }}
         >
-          <Grid
-            container
-            justify="center"
-            style={{
-              paddingTop: 40,
-              minHeight: 400,
-              backgroundImage: "url(" + ImgEmployee + ")",
-              backgroundSize: "contain",
-              backgroundPosition: "bottom",
-              backgroundRepeat: "no-repeat",
-            }}
+          <Typography
+            style={{ ...content, fontSize: 32, fontWeight: "bolder" }}
           >
-            <Grid item lg={10} md={10} sm={10}>
-              <Typography
-                style={{ ...content, fontSize: 32, fontWeight: "bolder" }}
-              >
-                Selamat Datang
-              </Typography>
-              <Typography style={content}>
-                Di Website Absensi, Silahkan <br />
-                Login untuk memulai
-              </Typography>
-            </Grid>
-          </Grid>
+            FAQ
+          </Typography>
         </div>
         <Partner />
         <Footer />
