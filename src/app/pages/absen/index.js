@@ -17,22 +17,38 @@ class Absensi extends React.Component {
       this.props.history.push("/user/login");
     }
   }
-  state = { user_data: {}, create: false, load: false };
+  state = {
+    user_data: {},
+    create: false,
+    load: false,
+    checkpoint: false,
+    message: "",
+  };
   componentDidMount() {
     this.setState({ user_data: JSON.parse(getItem("user_data")) });
     this.checkPoint();
   }
   checkPoint() {
+    this.setState({ load: false, message: "", error: "" });
+
     RequestGet("absensi/checkpoint")
       .then((res) => {
-        this.setState({ create: res.data.data.create, load: true });
+        this.setState({
+          create: res.data.data.create,
+          load: true,
+          checkpoint: true,
+        });
       })
       .catch((err) => {
-        this.setState({ error: err.data.message });
+        this.setState({
+          message: err.data.message,
+          load: true,
+          checkpoint: false,
+        });
       });
   }
   absenMasuk() {
-    this.setState({ load: false });
+    this.setState({ load: false, message: "", error: "" });
     RequestPost("absensi/punchin")
       .then((res) => {
         this.setState({ create: false, load: true });
@@ -42,10 +58,11 @@ class Absensi extends React.Component {
       });
   }
   absenPulang() {
-    this.setState({ load: false });
+    this.setState({ load: false, message: "", error: "" });
     RequestPut("absensi/punchout")
       .then((res) => {
         this.setState({ create: true, load: true });
+        this.checkPoint();
       })
       .catch((e) => {
         this.setState({ load: true, error: e.data.message });
@@ -66,19 +83,21 @@ class Absensi extends React.Component {
                   color: palette.primary,
                 }}
               >
-                Halo,&nbsp;{this.state.user_data.name}{" "}
+                Halo,&nbsp;{this.state.user_data.name}
               </Typography>
-              <Typography
-                style={{
-                  fontSize: 24,
-                  color: palette.primary,
-                  marginTop: 20,
-                }}
-              >
-                Silahkan Klik tombol dibawah untuk:
-              </Typography>
+              {this.state.checkpoint && (
+                <Typography
+                  style={{
+                    fontSize: 24,
+                    color: palette.primary,
+                    marginTop: 20,
+                  }}
+                >
+                  Silahkan Klik tombol dibawah untuk:
+                </Typography>
+              )}
               {!this.state.load && "Mohon tunggu"}
-              {this.state.load && (
+              {this.state.load && this.state.checkpoint && (
                 <div>
                   {this.state.create && (
                     <Button
@@ -103,6 +122,17 @@ class Absensi extends React.Component {
                 </div>
               )}
               <p style={{ color: palette.error }}>{this.state.error}</p>
+              {this.state.message && (
+                <p
+                  style={{
+                    color: palette.primary,
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                >
+                  {this.state.message}
+                </p>
+              )}
             </Grid>
           </Grid>
         </div>

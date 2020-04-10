@@ -65,11 +65,13 @@ class HistoryPage extends React.Component {
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>No</TableCell>
-                      <TableCell>Tanggal</TableCell>
-                      <TableCell>Masuk</TableCell>
-                      <TableCell>Pulang</TableCell>
-                      <TableCell>Durasi</TableCell>
+                      <TableCell variant="head">No</TableCell>
+                      <TableCell variant="head" size="medium">
+                        Tanggal
+                      </TableCell>
+                      <TableCell variant="head">Masuk</TableCell>
+                      <TableCell variant="head">Pulang</TableCell>
+                      <TableCell variant="head">Durasi</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -89,7 +91,7 @@ class HistoryPage extends React.Component {
                           <TableRow key={key}>
                             <TableCell>{this.state.page + 1 + key}</TableCell>
                             <TableCell>
-                              <Moment format="DD - MMM - YYYY" local>
+                              <Moment format="DD-MMM-YYYY" local>
                                 {val.punch_in}
                               </Moment>
                             </TableCell>
