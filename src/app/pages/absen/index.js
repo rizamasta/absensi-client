@@ -38,8 +38,7 @@ class Absensi extends React.Component {
         this.setState({ create: false, load: true });
       })
       .catch((e) => {
-        this.setState({ load: false });
-        this.setState({ error: e.data.message });
+        this.setState({ load: true, error: e.data.message });
       });
   }
   absenPulang() {
@@ -49,8 +48,7 @@ class Absensi extends React.Component {
         this.setState({ create: true, load: true });
       })
       .catch((e) => {
-        this.setState({ load: false });
-        this.setState({ error: e.data.message });
+        this.setState({ load: true, error: e.data.message });
       });
   }
   render() {
