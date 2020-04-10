@@ -1,7 +1,7 @@
 import React from "react";
 import { getItem, RequestGet } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
-import { Header } from "app/components";
+import { Header, Footer } from "app/components";
 import Moment from "react-moment";
 import {
   Grid,
@@ -122,6 +122,7 @@ class HistoryPage extends React.Component {
             </Grid>
           </Grid>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { getItem, RequestPost, RequestGet, RequestPut } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
-import { Header } from "app/components";
+import { Header, Footer } from "app/components";
 import { Grid, Button, Typography } from "@material-ui/core";
 import { palette } from "assets/css/main";
 const buttonStyle = {
@@ -108,6 +108,7 @@ class Absensi extends React.Component {
             </Grid>
           </Grid>
         </div>
+        <Footer />
       </div>
     );
   }

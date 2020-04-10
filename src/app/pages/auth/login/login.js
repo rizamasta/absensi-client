@@ -1,7 +1,7 @@
 import React from "react";
 import { getItem, RequestPost, UserSession } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
-import { Header } from "app/components";
+import { Header, Footer } from "app/components";
 import { Grid, Button, Typography } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { palette } from "assets/css/main";
@@ -89,6 +89,7 @@ class UserLogin extends React.Component {
             </Grid>
           </Grid>
         </div>
+        <Footer />
       </div>
     );
   }

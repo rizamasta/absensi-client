@@ -1,6 +1,6 @@
 import React from "react";
 import MyHelmet from "app/components/header/MyHelmet";
-import { Header } from "app/components";
+import { Header, Footer } from "app/components";
 import { Grid, Typography, Button } from "@material-ui/core";
 import { palette } from "assets/css/main";
 import { RequestGet } from "app/utils";
@@ -82,6 +82,7 @@ export default class Profile extends React.Component {
             </Grid>
           </Grid>
         </div>
+        <Footer />
       </div>
     );
   }
