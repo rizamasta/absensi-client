@@ -8,6 +8,7 @@ import {
   About,
   TNCPage,
   FAQ,
+  AbsensiReport,
 } from "../pages";
 
 const routes = [
@@ -50,6 +51,11 @@ const routes = [
     path: "/user/profile",
     exact: true,
     component: Profile,
+  },
+  {
+    path: "/user/report",
+    exact: true,
+    component: AbsensiReport,
   },
   {
     path: "/user/profile/change-password",

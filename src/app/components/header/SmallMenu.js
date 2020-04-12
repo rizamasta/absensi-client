@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -8,7 +8,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { clearAll, getItem } from "app/utils";
 export default function SmallMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [rules, setRules] = React.useState(0);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -21,6 +21,13 @@ export default function SmallMenu() {
     clearAll();
     window.location.href = "/user/login";
   };
+
+  useEffect(() => {
+    if (getItem("token")) {
+      var data = JSON.parse(getItem("user_data"));
+      setRules(data.rules);
+    }
+  }, []);
 
   return (
     <div>
@@ -64,6 +71,16 @@ export default function SmallMenu() {
                 Profil
               </Link>
             </MenuItem>
+            {rules === 1 && (
+              <MenuItem onClick={handleClose}>
+                <Link
+                  to="/user/report"
+                  style={{ color: palette.primary, fontWeight: "bold" }}
+                >
+                  Report
+                </Link>
+              </MenuItem>
+            )}
             <MenuItem
               onClick={logout}
               style={{ color: palette.primary, fontWeight: "bold" }}

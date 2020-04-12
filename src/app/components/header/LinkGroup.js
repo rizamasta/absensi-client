@@ -11,6 +11,13 @@ class LinkGroup extends React.Component {
     ...PRIMARY_BUTTON,
     fontWeight: "bold",
   };
+  state = { rules: 0 };
+  componentDidMount() {
+    if (getItem("token")) {
+      var data = JSON.parse(getItem("user_data"));
+      this.setState({ rules: data.rules });
+    }
+  }
   handleClose = () => {
     this.setState({ openLang: false });
     this.anchorEl = null;
@@ -33,6 +40,11 @@ class LinkGroup extends React.Component {
             <Link to="/user/profile" style={this.linkStyle}>
               Profil
             </Link>
+            {this.state.rules === 1 && (
+              <Link to="/user/report" style={this.linkStyle}>
+                Report
+              </Link>
+            )}
             <Button
               size="small"
               variant="contained"
