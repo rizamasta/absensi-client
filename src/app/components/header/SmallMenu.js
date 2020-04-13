@@ -65,6 +65,14 @@ export default function SmallMenu() {
             </MenuItem>
             <MenuItem onClick={handleClose}>
               <Link
+                to="/user/kinerja"
+                style={{ color: palette.primary, fontWeight: "bold" }}
+              >
+                Kinerja Harian
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link
                 to="/user/profile"
                 style={{ color: palette.primary, fontWeight: "bold" }}
               >

@@ -40,6 +40,9 @@ class LinkGroup extends React.Component {
             <Link to="/user/profile" style={this.linkStyle}>
               Profil
             </Link>
+            <Link to="/user/kinerja" style={this.linkStyle}>
+              Kinerja Harian
+            </Link>
             {this.state.rules === 1 && (
               <Link to="/user/report" style={this.linkStyle}>
                 Report

@@ -2,7 +2,7 @@ import React from "react";
 import { getItem, RequestPost, RequestGet, RequestPut } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { Grid, Button, Typography, CircularProgress } from "@material-ui/core";
 import { palette } from "assets/css/main";
 const buttonStyle = {
   marginTop: 20,
@@ -103,20 +103,40 @@ class Absensi extends React.Component {
                     <Button
                       size="large"
                       variant="contained"
-                      style={buttonStyle}
+                      style={{
+                        ...buttonStyle,
+                        backgroundColor: this.state.load
+                          ? palette.primary
+                          : "grey",
+                      }}
                       onClick={() => this.absenMasuk()}
                     >
                       Absen Masuk
+                      {!this.state.load && (
+                        <CircularProgress
+                          style={{ width: 20, height: 20, marginLeft: 20 }}
+                        />
+                      )}
                     </Button>
                   )}
                   {!this.state.create && (
                     <Button
                       size="large"
                       variant="contained"
-                      style={{ ...buttonStyle, backgroundColor: palette.error }}
+                      style={{
+                        ...buttonStyle,
+                        backgroundColor: this.state.load
+                          ? palette.error
+                          : "grey",
+                      }}
                       onClick={() => this.absenPulang()}
                     >
                       Absen Pulang
+                      {!this.state.load && (
+                        <CircularProgress
+                          style={{ width: 20, height: 20, marginLeft: 20 }}
+                        />
+                      )}
                     </Button>
                   )}
                 </div>

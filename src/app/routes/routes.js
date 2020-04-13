@@ -9,6 +9,7 @@ import {
   TNCPage,
   FAQ,
   AbsensiReport,
+  KinerjaPage,
 } from "../pages";
 
 const routes = [
@@ -56,6 +57,11 @@ const routes = [
     path: "/user/report",
     exact: true,
     component: AbsensiReport,
+  },
+  {
+    path: "/user/kinerja",
+    exact: true,
+    component: KinerjaPage,
   },
   {
     path: "/user/profile/change-password",

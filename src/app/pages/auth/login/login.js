@@ -2,7 +2,7 @@ import React from "react";
 import { getItem, RequestPost, UserSession } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { Grid, Button, Typography, CircularProgress } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { palette } from "assets/css/main";
 const content = {
@@ -11,7 +11,7 @@ const content = {
   fontSize: 18,
 };
 class UserLogin extends React.Component {
-  state = { username: "", password: "" };
+  state = { username: "", password: "", request: false };
   constructor(props) {
     super(props);
     if (getItem("token")) {
@@ -21,12 +21,17 @@ class UserLogin extends React.Component {
   }
   submitForm = (ev) => {
     ev.preventDefault();
+    this.setState({ request: true });
     RequestPost("user/auth/login", this.state)
       .then((res) => {
         UserSession.setData(res.data.data);
+        this.setState({ request: false });
+
         this.props.history.push("/user/absen");
       })
       .catch((e) => {
+        this.setState({ request: false });
+
         this.setState({ error: e.data.message });
       });
   };
@@ -73,17 +78,25 @@ class UserLogin extends React.Component {
                   {this.state.error}
                 </p>
                 <Button
+                  disabled={this.state.request}
                   size="large"
                   variant="contained"
                   style={{
                     marginTop: 20,
-                    backgroundColor: palette.primary,
+                    backgroundColor: this.state.request
+                      ? "grey"
+                      : palette.primary,
                     color: "white",
                     fontWeight: "bold",
                   }}
                   type="submit"
                 >
                   Login
+                  {this.state.request && (
+                    <CircularProgress
+                      style={{ width: 20, height: 20, marginLeft: 20 }}
+                    />
+                  )}
                 </Button>
               </ValidatorForm>
             </Grid>
