@@ -35,6 +35,20 @@ const buttonStyle = {
   color: "white",
   fontWeight: "bold",
 };
+const month = [
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
+  "06",
+  "07",
+  "08",
+  "09",
+  "10",
+  "11",
+  "12",
+];
 class KinerjaPage extends React.Component {
   constructor(props) {
     super(props);
@@ -82,15 +96,9 @@ class KinerjaPage extends React.Component {
     if (!date) {
       date = new Date();
     }
-    const ye = new Intl.DateTimeFormat("en-ID", { year: "numeric" }).format(
-      date
-    );
-    const mo = new Intl.DateTimeFormat("en-ID", { month: "2-digit" }).format(
-      date
-    );
-    const da = new Intl.DateTimeFormat("en-ID", { day: "2-digit" }).format(
-      date
-    );
+    const ye = date.getFullYear();
+    const mo = month[date.getMonth()];
+    const da = date.getDate();
     data = {
       date: ye + "-" + mo + "-" + da,
     };
