@@ -92,3 +92,11 @@ export async function RequestPut(uri, data) {
 export async function RequestDelete(uri) {
   return await axios.delete(process.env.REACT_APP_API + uri);
 }
+
+export async function RequestDownload(uri) {
+  return await axios({
+    url: process.env.REACT_APP_API + uri,
+    method: "GET",
+    responseType: "blob", // important
+  });
+}
