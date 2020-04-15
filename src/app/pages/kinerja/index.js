@@ -5,6 +5,7 @@ import {
   RequestPut,
   RequestPost,
   RequestDelete,
+  RequestDownload,
 } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
@@ -25,6 +26,7 @@ import {
   TextField,
   DialogActions,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -76,6 +78,8 @@ class KinerjaPage extends React.Component {
     metrix: "",
     volume: "",
     output: "",
+    loading: true,
+    download: false,
   };
   clear() {
     this.setState({ description: "", metrix: "", volume: "", output: "" });
@@ -93,25 +97,24 @@ class KinerjaPage extends React.Component {
     });
     this.getHistory();
   }
-  getHistory() {
-    var date = this.state.date;
-    var data = {};
+  reformat(date) {
     if (!date) {
       date = new Date();
     }
     const ye = date.getFullYear();
     const mo = month[date.getMonth()];
     const da = date.getDate();
-    data = {
-      date: ye + "-" + mo + "-" + da,
-    };
-
+    return ye + "-" + mo + "-" + da;
+  }
+  getHistory() {
+    this.setState({ loading: true });
+    var data = { date: this.reformat(this.state.date) };
     RequestGet("user/kinerja", data)
       .then((res) => {
-        this.setState({ data_history: res.data.data, load: true });
+        this.setState({ data_history: res.data.data, loading: false });
       })
       .catch((err) => {
-        this.setState({ error: err.data.message, load: true });
+        this.setState({ error: err.data.message, loading: false });
       });
   }
   saveEdit() {
@@ -146,6 +149,24 @@ class KinerjaPage extends React.Component {
         this.setState({ error: e.data.message });
       });
   }
+  downloadLaporan() {
+    var da = this.reformat(this.state.date);
+    this.setState({ download: true });
+    RequestDownload("user/kinerja/report?date=" + da)
+      .then((r) => {
+        this.setState({ download: false });
+        const url = window.URL.createObjectURL(new Blob([r.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "Kinerja-Harian_" + da + ".xlsx");
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setState({ download: false });
+      });
+  }
   openEdit(v) {
     this.setState(v);
     this.setState({
@@ -172,22 +193,6 @@ class KinerjaPage extends React.Component {
         <MyHelmet title={"History"} />
         <Header shadow={true} linkgroup={true} />
         <div style={{ paddingTop: 100 }}>
-          <Button
-            style={{
-              ...buttonStyle,
-              position: "absolute",
-              left: 20,
-            }}
-            onClick={() =>
-              this.setState({
-                open: true,
-                title: "Tambah Laporan Kinerja",
-                edit: false,
-              })
-            }
-          >
-            Tambah
-          </Button>
           <Grid
             container
             // direction="column"
@@ -196,23 +201,25 @@ class KinerjaPage extends React.Component {
             style={{ width: "100vw", marginTop: 40 }}
           >
             <Grid item lg={10} md={10} sm={10} xs={10}>
+              <Button
+                style={{
+                  ...buttonStyle,
+                  marginBottom: 20,
+                }}
+                onClick={() =>
+                  this.setState({
+                    open: true,
+                    title: "Tambah Laporan Kinerja",
+                    edit: false,
+                  })
+                }
+              >
+                Tambah Kinerja Harian
+              </Button>
               <Grid container alignItems="center">
-                <Typography>Laporan Kinerja Harian:</Typography>
-                <Button
-                  style={{
-                    ...buttonStyle,
-                    ...{ backgroundColor: palette.secondary },
-                  }}
-                  onClick={() =>
-                    this.setState({
-                      open: true,
-                      title: "Tambah Laporan Kinerja",
-                      edit: false,
-                    })
-                  }
-                >
-                  Download
-                </Button>
+                <Typography style={{ marginRight: 5 }}>
+                  Laporan Kinerja Harian, Tampilkan data Tanggal:
+                </Typography>
                 <div className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
                   <DatePicker
                     maxDate={new Date()}
@@ -223,6 +230,22 @@ class KinerjaPage extends React.Component {
                   />
                   <ArrowDropDown style={{ position: "absolute", right: 10 }} />
                 </div>
+                <Button
+                  disabled={this.state.download}
+                  style={{
+                    ...buttonStyle,
+                    backgroundColor: !this.state.download ? "#35b135" : "grey",
+                    marginLeft: 10,
+                  }}
+                  onClick={() => this.downloadLaporan()}
+                >
+                  Download
+                  {this.state.download && (
+                    <CircularProgress
+                      style={{ width: 20, height: 20, marginLeft: 20 }}
+                    />
+                  )}
+                </Button>
               </Grid>
               <Dialog
                 open={this.state.open}
@@ -358,7 +381,9 @@ class KinerjaPage extends React.Component {
                   <TableBody>
                     {this.state.data_history.length === 0 && (
                       <TableRow>
-                        <TableCell colSpan={6}>No Data</TableCell>
+                        <TableCell colSpan={6}>
+                          {this.state.loading ? "Mohon Tunggu..." : "No Data"}
+                        </TableCell>
                       </TableRow>
                     )}
                     {this.state.data_history
