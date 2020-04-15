@@ -1,9 +1,9 @@
 import React from "react";
 import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, CircularProgress } from "@material-ui/core";
 import { palette } from "assets/css/main";
-import { Link } from "react-router-dom";
+import { RequestDownload } from "app/utils";
 const buttonStyle = {
   marginTop: 20,
   backgroundColor: palette.primary,
@@ -11,7 +11,24 @@ const buttonStyle = {
   fontWeight: "bold",
 };
 export default class AbsensiReport extends React.Component {
-  state = {};
+  state = { loading: false };
+  download() {
+    this.setState({ loading: true });
+    RequestDownload("absensi/export")
+      .then((r) => {
+        this.setState({ loading: false });
+        const url = window.URL.createObjectURL(new Blob([r.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", new Date().getTime() + ".xlsx");
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setState({ loading: false });
+      });
+  }
   render() {
     return (
       <div>
@@ -21,22 +38,25 @@ export default class AbsensiReport extends React.Component {
           <Grid container justify="center" alignItems="center">
             <Grid item lg={4} md={6} sm={10} xs={10}>
               <div>
-                <Link
-                  to="route"
-                  target="_blank"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    window.open(
-                      process.env.REACT_APP_API.replace("v1/", "") +
-                        "s/file/" +
-                        new Date().getTime()
-                    );
+                <Button
+                  disabled={this.state.loading}
+                  size="large"
+                  variant="contained"
+                  onClick={() => this.download()}
+                  style={{
+                    ...buttonStyle,
+                    backgroundColor: this.state.loading
+                      ? "#ccc"
+                      : palette.primary,
                   }}
                 >
-                  <Button size="large" variant="contained" style={buttonStyle}>
-                    Download Absen Mingguan
-                  </Button>
-                </Link>
+                  Download Absen Mingguan
+                  {this.state.loading && (
+                    <CircularProgress
+                      style={{ width: 20, height: 20, marginLeft: 20 }}
+                    />
+                  )}
+                </Button>
               </div>
             </Grid>
           </Grid>
