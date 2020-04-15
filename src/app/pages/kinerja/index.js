@@ -77,6 +77,9 @@ class KinerjaPage extends React.Component {
     volume: "",
     output: "",
   };
+  clear() {
+    this.setState({ description: "", metrix: "", volume: "", output: "" });
+  }
   handleChangeDate(v) {
     this.setState({ date: v });
     setTimeout(() => {
@@ -115,6 +118,7 @@ class KinerjaPage extends React.Component {
     RequestPut("user/kinerja/" + this.state.id_kinerja, this.state)
       .then((res) => {
         this.setState({ open: false });
+        this.clear();
         this.getHistory();
       })
       .catch((e) => {
@@ -126,6 +130,7 @@ class KinerjaPage extends React.Component {
       .then((res) => {
         this.setState({ open: false });
         this.getHistory();
+        this.clear();
       })
       .catch((e) => {
         this.setState({ error: e.data.message });
@@ -167,14 +172,48 @@ class KinerjaPage extends React.Component {
         <MyHelmet title={"History"} />
         <Header shadow={true} linkgroup={true} />
         <div style={{ paddingTop: 100 }}>
-          <Grid container justify="center" alignItems="center">
+          <Button
+            style={{
+              ...buttonStyle,
+              position: "absolute",
+              left: 20,
+            }}
+            onClick={() =>
+              this.setState({
+                open: true,
+                title: "Tambah Laporan Kinerja",
+                edit: false,
+              })
+            }
+          >
+            Tambah
+          </Button>
+          <Grid
+            container
+            // direction="column"
+            justify="center"
+            alignItems="center"
+            style={{ width: "100vw", marginTop: 40 }}
+          >
             <Grid item lg={10} md={10} sm={10} xs={10}>
               <Grid container alignItems="center">
                 <Typography>Laporan Kinerja Harian:</Typography>
-                <div
-                  style={{ marginLeft: 20, marginRight: 20 }}
-                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+                <Button
+                  style={{
+                    ...buttonStyle,
+                    ...{ backgroundColor: palette.secondary },
+                  }}
+                  onClick={() =>
+                    this.setState({
+                      open: true,
+                      title: "Tambah Laporan Kinerja",
+                      edit: false,
+                    })
+                  }
                 >
+                  Download
+                </Button>
+                <div className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
                   <DatePicker
                     maxDate={new Date()}
                     selected={this.state.date}
@@ -184,18 +223,6 @@ class KinerjaPage extends React.Component {
                   />
                   <ArrowDropDown style={{ position: "absolute", right: 10 }} />
                 </div>
-                <Button
-                  style={buttonStyle}
-                  onClick={() =>
-                    this.setState({
-                      open: true,
-                      title: "Tambah Laporan Kinerja",
-                      edit: false,
-                    })
-                  }
-                >
-                  Tambah
-                </Button>
               </Grid>
               <Dialog
                 open={this.state.open}
@@ -314,8 +341,8 @@ class KinerjaPage extends React.Component {
                 </DialogActions>
               </Dialog>
 
-              <TableContainer>
-                <Table aria-label="sticky table">
+              <TableContainer style={{ width: "100%" }}>
+                <Table aria-label="table">
                   <TableHead>
                     <TableRow>
                       <TableCell variant="head">No</TableCell>
