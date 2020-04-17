@@ -40,8 +40,14 @@ export default class Home extends React.Component {
               minHeight: 400,
             }}
           >
-            <Grid item lg={6} md={6} sm={6}>
-              <div style={{ display: "flex", justifyContent: "center" }}>
+            <Grid item lg={6} md={6} sm={6} style={{ marginBottom: 40 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: 20,
+                }}
+              >
                 <img src={ImgLogo} width={200} alt="Pelogo" />
               </div>
               <div style={{ textAlign: "center" }}>
