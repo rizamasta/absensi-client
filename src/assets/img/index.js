@@ -1,6 +1,9 @@
 export { default as ImgBanner } from "./src/banner1.png";
 export { default as ImgApplicant } from "./src/illust/applicant.png";
 export { default as ImgEmployee } from "./src/illust/employee.png";
+export { default as ImgLogo } from "./src/illust/Logo.png";
+export { default as ImgPicture } from "./src/illust/Picture.jpeg";
+
 export { default as ImgRecruiter } from "./src/illust/recruiter.png";
 export { default as ImgVerify } from "./src/illust/verify.png";
 

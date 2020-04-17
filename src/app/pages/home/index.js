@@ -4,7 +4,7 @@ import PrimaryAppBar from "app/components/header/PrimaryAppBar";
 import { getItem } from "app/utils";
 import { Grid, Typography } from "@material-ui/core";
 import { palette } from "assets/css/main";
-import { ImgEmployee } from "assets/img";
+import { ImgPicture, ImgLogo } from "assets/img";
 import { Footer } from "app/components";
 import Partner from "./Partner";
 const content = {
@@ -38,22 +38,34 @@ export default class Home extends React.Component {
             style={{
               paddingTop: 40,
               minHeight: 400,
-              backgroundImage: "url(" + ImgEmployee + ")",
-              backgroundSize: "contain",
-              backgroundPosition: "bottom",
-              backgroundRepeat: "no-repeat",
             }}
           >
-            <Grid item lg={10} md={10} sm={10}>
-              <Typography
-                style={{ ...content, fontSize: 32, fontWeight: "bolder" }}
-              >
-                Selamat Datang
-              </Typography>
-              <Typography style={content}>
-                Di Website Absensi, Silahkan <br />
-                Login untuk memulai
-              </Typography>
+            <Grid item lg={6} md={6} sm={6}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img src={ImgLogo} width={200} alt="Pelogo" />
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <Typography
+                  style={{ ...content, fontSize: 32, fontWeight: "bolder" }}
+                >
+                  Selamat Datang
+                </Typography>
+                <Typography style={content}>
+                  Di Website Absensi ASN Kemenag Kab. Way Kanan
+                  <br />
+                  Silahkan Login untuk memulai
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item lg={6} md={6} sm={6}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img
+                  src={ImgPicture}
+                  width={"50%"}
+                  alt="People"
+                  style={{ borderRadius: "50%" }}
+                />
+              </div>
             </Grid>
           </Grid>
         </div>
