@@ -54,9 +54,6 @@ const month = [
 class KinerjaPage extends React.Component {
   constructor(props) {
     super(props);
-    if (!getItem("token")) {
-      this.props.history.push("/user/login");
-    }
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
     this.changeDate = this.handleChangeDate.bind(this);
