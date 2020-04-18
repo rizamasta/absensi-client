@@ -36,11 +36,11 @@ export default class Home extends React.Component {
             container
             justify="center"
             style={{
-              paddingTop: 40,
+              paddingTop: 0,
               minHeight: 400,
             }}
           >
-            <Grid item lg={6} md={6} sm={6} style={{ marginBottom: 40 }}>
+            <Grid item lg={4} md={4} sm={4} style={{ marginBottom: 40 }}>
               <div
                 style={{
                   display: "flex",
@@ -48,7 +48,7 @@ export default class Home extends React.Component {
                   marginBottom: 20,
                 }}
               >
-                <img src={ImgLogo} width={200} alt="Pelogo" />
+                <img src={ImgLogo} width={100} height={100} alt="Pelogo" />
               </div>
               <div style={{ textAlign: "center" }}>
                 <Typography
@@ -67,7 +67,8 @@ export default class Home extends React.Component {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img
                   src={ImgPicture}
-                  width={"50%"}
+                  width={200}
+                  height={200}
                   alt="People"
                   style={{ borderRadius: "50%" }}
                 />
