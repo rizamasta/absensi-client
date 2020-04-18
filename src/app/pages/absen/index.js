@@ -11,12 +11,6 @@ const buttonStyle = {
   fontWeight: "bold",
 };
 class Absensi extends React.Component {
-  constructor(props) {
-    super(props);
-    if (!getItem("token")) {
-      this.props.history.push("/user/login");
-    }
-  }
   state = {
     user_data: {},
     create: false,
