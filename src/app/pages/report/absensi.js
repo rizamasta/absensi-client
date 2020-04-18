@@ -3,7 +3,7 @@ import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
 import { Grid, Button, CircularProgress } from "@material-ui/core";
 import { palette } from "assets/css/main";
-import { RequestDownload } from "app/utils";
+import { RequestDownload, getItem } from "app/utils";
 const buttonStyle = {
   marginTop: 20,
   backgroundColor: palette.primary,
@@ -12,6 +12,12 @@ const buttonStyle = {
 };
 export default class AbsensiReport extends React.Component {
   state = { loading: false };
+  constructor(props) {
+    super(props);
+    if (!getItem("token")) {
+      this.props.history.push("/user/login");
+    }
+  }
   download() {
     this.setState({ loading: true });
     RequestDownload("absensi/export")
