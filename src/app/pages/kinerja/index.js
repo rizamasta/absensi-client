@@ -5,7 +5,6 @@ import {
   RequestPut,
   RequestPost,
   RequestDelete,
-  RequestDownload,
 } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
@@ -148,21 +147,15 @@ class KinerjaPage extends React.Component {
   }
   downloadLaporan() {
     var da = this.reformat(this.state.date);
-    this.setState({ download: true });
-    RequestDownload("user/kinerja/report?date=" + da)
-      .then((r) => {
-        this.setState({ download: false });
-        const url = window.URL.createObjectURL(new Blob([r.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "Kinerja-Harian_" + da + ".xlsx");
-        document.body.appendChild(link);
-        link.click();
-      })
-      .catch((e) => {
-        console.log(e);
-        this.setState({ download: false });
-      });
+    const user = JSON.parse(getItem("user_data"));
+    window.open(
+      process.env.REACT_APP_API_BASE +
+        "s/file/kinerja/" +
+        user.id_user +
+        "?date=" +
+        da,
+      "_blank"
+    );
   }
   openEdit(v) {
     this.setState(v);
