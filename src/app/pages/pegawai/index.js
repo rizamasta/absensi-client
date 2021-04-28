@@ -8,7 +8,6 @@ import {
 } from "app/utils";
 import MyHelmet from "app/components/header/MyHelmet";
 import { Header, Footer } from "app/components";
-import Moment from "react-moment";
 import {
   Grid,
   Typography,
