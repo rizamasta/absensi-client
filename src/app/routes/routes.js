@@ -1,3 +1,4 @@
+import DataPegawaiPage from "app/pages/pegawai";
 import {
   Home,
   UserLogin,
@@ -62,6 +63,11 @@ const routes = [
     path: "/user/kinerja",
     exact: true,
     component: KinerjaPage,
+  },
+  {
+    path: "/user/data",
+    exact: true,
+    component: DataPegawaiPage,
   },
   {
     path: "/user/profile/change-password",
