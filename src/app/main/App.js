@@ -5,6 +5,7 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { routes } from "../routes";
 import { NotFound } from "app/pages";
+import AbsensiAlert from "./AbsensiAlert";
 
 const options = {
   position: "top center",
@@ -17,6 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <AlertProvider template={AlertTemplate} {...options}>
+        <AbsensiAlert />
         <BrowserRouter>
           <Switch>
             {routes.map((value, i) => {
