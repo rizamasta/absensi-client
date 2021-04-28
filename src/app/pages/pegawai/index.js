@@ -28,7 +28,7 @@ import {
   DialogActions,
 } from "@material-ui/core";
 import { palette } from "assets/css/main";
-import { Delete, Edit } from "@material-ui/icons";
+import { Delete, Edit, LockOpen } from "@material-ui/icons";
 import alertData from "app/main/alert-data";
 
 const buttonStyle = {
@@ -61,6 +61,7 @@ class DataPegawaiPage extends React.Component {
     level: "",
     position: "",
     disableSave: false,
+    reset: false,
     location: "",
   };
   componentDidMount() {
@@ -82,7 +83,7 @@ class DataPegawaiPage extends React.Component {
       });
   }
   handleClose = () => {
-    this.setState({ open: false, delete: false });
+    this.setState({ open: false, delete: false, reset: false });
   };
   saveUser = () => {
     this.setState({ disableSave: true });
@@ -96,6 +97,7 @@ class DataPegawaiPage extends React.Component {
           location: "",
           disableSave: false,
         });
+        this.handleClose();
         alertData.show("Success Create", "success");
         this.getDataUser();
       })
@@ -105,22 +107,21 @@ class DataPegawaiPage extends React.Component {
         this.setState({ disableSave: false });
       });
   };
+
   editUser = () => {
     this.setState({ disableSave: true });
     RequestPut("user/edit/" + this.state.id_user, this.state)
       .then(() => {
-        setTimeout(() => {
-          this.setState({
-            username: "",
-            fullname: "",
-            level: "",
-            position: "",
-            location: "",
-            disableSave: false,
-          });
-          this.getDataUser();
-          this.handleClose();
-        }, 3000);
+        this.setState({
+          username: "",
+          fullname: "",
+          level: "",
+          position: "",
+          location: "",
+          disableSave: false,
+        });
+        this.getDataUser();
+        this.handleClose();
         alertData.show("Berhasil mengubah data Pegawai", "success");
       })
       .catch(e => {
@@ -129,19 +130,45 @@ class DataPegawaiPage extends React.Component {
         this.setState({ disableSave: false });
       });
   };
+
   deleteUser = () => {
+    this.setState({ disableSave: true });
     RequestDelete("user/delete/" + this.state.id_user)
       .then(() => {
+        this.setState({ disableSave: false });
+
         alertData.show("Berhasil menghapus data Pegawai", "success");
         this.getDataUser();
       })
       .catch(e => {
+        this.setState({ disableSave: false });
+
         alertData.show(!e.data.message ? "Error" : e.data.message, "error");
       })
       .finally(() => {
         this.handleClose();
       });
   };
+
+  resetPassword = () => {
+    this.setState({ disableSave: true });
+    RequestPut("user/reset/" + this.state.id_user)
+      .then(() => {
+        this.setState({ disableSave: false });
+
+        alertData.show("Atur ulang password, berhasil", "success");
+        this.getDataUser();
+      })
+      .catch(e => {
+        this.setState({ disableSave: false });
+
+        alertData.show(!e.data.message ? "Error" : e.data.message, "error");
+      })
+      .finally(() => {
+        this.handleClose();
+      });
+  };
+
   handleSearch() {
     const data = this.state.data_history;
     this.setState({
@@ -172,6 +199,7 @@ class DataPegawaiPage extends React.Component {
       position,
       location,
       disableSave,
+      reset,
     } = this.state;
     return (
       <div>
@@ -296,11 +324,44 @@ class DataPegawaiPage extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button
+              disabled={disableSave}
+              onClick={this.handleClose}
+              color="primary">
               Batal
             </Button>
-            <Button onClick={() => this.deleteUser()} color="secondary">
+            <Button
+              disabled={disableSave}
+              onClick={() => this.deleteUser()}
+              color="secondary">
               Hapus
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={reset}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title-delete">
+          <DialogTitle id="form-dialog-title">Atur ulang Password</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Password akan berubah mengikuti NIP(Username). Demi keamanan
+              setelah password diubah, diharapkan pegawai terkait untuk segera
+              mengubah password setelah login.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              disabled={disableSave}
+              onClick={this.handleClose}
+              color="primary">
+              Batal
+            </Button>
+            <Button
+              disabled={disableSave}
+              onClick={() => this.resetPassword()}
+              color="secondary">
+              Atur ulang
             </Button>
           </DialogActions>
         </Dialog>
@@ -404,6 +465,19 @@ class DataPegawaiPage extends React.Component {
                                   }>
                                   <Edit
                                     style={{ fontSize: 18, color: "orange" }}
+                                  />
+                                </Button>
+                                <Button
+                                  style={{ width: 30 }}
+                                  title={"Reset password pegawai"}
+                                  onClick={() =>
+                                    this.setState({
+                                      id_user: val.id_user,
+                                      reset: true,
+                                    })
+                                  }>
+                                  <LockOpen
+                                    style={{ fontSize: 18, color: "grey" }}
                                   />
                                 </Button>
                                 <Button
