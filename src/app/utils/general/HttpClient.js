@@ -1,3 +1,4 @@
+import alertData from "app/main/alert-data";
 import { getItem } from "./Storage";
 const axios = require("axios").default;
 
@@ -26,15 +27,26 @@ axios.interceptors.response.use(
     return res;
   },
   function (er) {
-    var code = er.response ? er.response.status : 500;
+    const code = er.response ? er.response.status : 500;
+    const message = er.response
+      ? er.response.message
+        ? er.response.message
+        : "Terjadi kesalahan"
+      : "Terjadi kesalahan, silahkan coba lagi";
     if (code === 401) {
-      return (window.location.href = "/user/login");
+      alertData.show(message, "error");
+      setTimeout(() => {
+        window.location.href = "/user/login";
+      }, 2000);
+    } else {
+      console.log(er.response);
+      alertData.show(message, "error");
     }
     return Promise.reject(er.response);
   }
 );
 
-const decode = (obj) => {
+const decode = obj => {
   try {
     return new URLSearchParams(obj).toString();
   } catch (error) {
